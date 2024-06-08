@@ -18,25 +18,29 @@ curl -X POST "http://localhost:80/movies/" -H "Content-Type: application/json" -
     "genre": "Drama",
     "year": 1997
 }'
-
 ```
+RESPONSE: {"title":"Epic movie/romantic drama/disaster movie","genre":"Drama","year":1997,"id":1}
+
 <b>GET</b> Получить список всех фильмов
 ```
 curl -X GET "http://127.0.0.1:80/movies/"
-
 ```
+RESPONSE: [{"title":"Epic movie/romantic drama/disaster movie","genre":"Drama","year":1997,"id":1}]
+
 <b>DELETE</b> Удалить фильм по id
 ```
 curl -X DELETE "http://127.0.0.1:80/movies/1"
-
 ```
+RESPONSE: {"message":"Movie deleted successfully"}
+
 <b>PATCH</b> Частично изменить объект
 ```
 curl -X PATCH "http://127.0.0.1:80/movies/1" -H "Content-Type: application/json" -d '{
     "title": "Titanic (Updated)"
 }'
-
 ```
+RESPONSE: {"title":"Titanic (Updated)","genre":"Drama","year":1997,"id":1}
+
 <b>PUT</b> Полность изменить объект
 ```
 curl -X PUT "http://127.0.0.1:80/movies/1" -H "Content-Type: application/json" -d '{
@@ -44,5 +48,6 @@ curl -X PUT "http://127.0.0.1:80/movies/1" -H "Content-Type: application/json" -
     "genre": "Drama",
     "year": 1997
 }'
-
 ```
+RESPONSE: {"title":"Epic movie/romantic drama/disaster movie","genre":"Drama","year":1997,"id":1}
+
