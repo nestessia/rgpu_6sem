@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор паролей</title>
+</head>
+<body>
+    <h1>Генератор паролей</h1>
+    <form id="passwordForm">
+        <label for="length">Длина пароля:</label>
+        <input type="number" id="length" name="length" value="12" min="1">
+        <br>
+        <label>
+            <input type="checkbox" id="include_uppercase" name="include_uppercase" checked>
+            Включать заглавные буквы
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="include_numbers" name="include_numbers" checked>
+            Включать цифры
+        </label>
+        <br>
+        <label>
+            <input type="checkbox" id="include_special_chars" name="include_special_chars" checked>
+            Включать специальные символы
+        </label>
+        <br>
+        <button type="button" onclick="generatePassword()">Сгенерировать пароль</button>
+    </form>
+    <h2>Сгенерированный пароль:</h2>
+    <p id="password"></p>
+
+    <script>
+        function generatePassword() {
+            const length = document.getElementById('length').value;
+            const include_uppercase = document.getElementById('include_uppercase').checked;
+            const include_numbers = document.getElementById('include_numbers').checked;
+            const include_special_chars = document.getElementById('include_special_chars').checked;
+
+            fetch(`/api/generate_password?length=${length}&include_uppercase=${include_uppercase}&include_numbers=${include_numbers}&include_special_chars=${include_special_chars}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('password').innerText = data.password;
+                });
+        }
+    </script>
+</body>
+</html>
