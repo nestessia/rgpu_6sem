@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Coffee Shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #ffffff;
+            margin: 20px 0;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333; /* Цвет заголовка */
+        }
+        .hero p {
+            font-size: 18px;
+            color: #666;
+        }
+        .sections {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33% - 40px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .section h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .section p {
+            font-size: 16px;
+            color: #666;
+        }
+        footer {
+            background-color: #333;
+            color: #ffffff;
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header style="padding: 10px 10px 10px 20px;">
+        <h1 style="margin: 0;">Coffee Shop</h1>
+        <nav>
+            <a href="{% url 'home' %}" style="margin-right: 10px;">Home</a>
+            <a href="{% url 'register' %}" style="margin-right: 10px;">Register</a>
+        </nav>
+    </header>
+    <div class="hero" style="padding: 10px 10px 10px 20px;">
+        <h2>Welcome to Coffee Shop</h2>
+        <p>Your perfect place to relax and enjoy a cup of coffee.</p>
+    </div>
+    {% if drinks %}
+    <div class="sections">
+        {% for drink in drinks %}
+        <div class="section">
+            <h3>{{ drink.name }}</h3>
+            <img src="{{ drink.image.url }}" alt="{{ drink.name }}" style="width: 200px; height: 200px;">
+            <p>{{ drink.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="hero" style="margin-top: 100px;">
+        <h2 style="color: #333; font-size: 36px;">Coming Soon...</h2>
+    </div>
+    {% endif %}
+</body>
+</html>

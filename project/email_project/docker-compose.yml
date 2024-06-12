@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - rabbit
+
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: email_project_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  celery:
+    build: .
+    container_name: celery_worker
+    command: celery -A email_project worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit
+
+  flower:
+    build: .
+    container_name: flower
+    command: celery -A email_project flower
+    ports:
+      - "5555:5555"
+    depends_on:
+      - celery
+
+volumes:
+  postgres_data:
