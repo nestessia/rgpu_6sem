@@ -1,4 +1,3 @@
-# mailing/apps.py
 from django.apps import AppConfig
 
 class MailingConfig(AppConfig):

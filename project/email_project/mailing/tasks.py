@@ -15,24 +15,15 @@ def send_email_task(subject, message, from_email, recipient_list):
         smtp_server = os.getenv('EMAIL_HOST')
         port = os.getenv('EMAIL_PORT')
         password = os.getenv('EMAIL_HOST_PASSWORD')
-        # Устанавливаем соединение с SMTP-сервером
         server = smtplib.SMTP(smtp_server, port)
         server.starttls()
         server.login(from_email, password)
-
-        # Создаем объект сообщения
         msg = MIMEMultipart()
         msg['From'] = from_email
         msg['To'] = ', '.join(recipient_list)
         msg['Subject'] = subject
-
-        # Добавляем текст сообщения
         msg.attach(MIMEText(message, 'plain'))
-
-        # Отправляем сообщение
         server.sendmail(from_email, recipient_list, msg.as_string())
-
-        # Закрываем соединение
         server.quit()
 
         print("Email sent successfully!")
